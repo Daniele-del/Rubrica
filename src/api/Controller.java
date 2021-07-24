@@ -16,15 +16,6 @@ public class Controller {
 	
 	ArrayList<Contatto> rubrica = new ArrayList<>();
 	
-	@Path("/all")
-	@GET
-    @Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Contatto> all(){
-		getRubrica();
-		System.out.println(rubrica.toString());
-		return rubrica;
-	}
-
 	
 	public Contatto getContatto(String numero){
 		Contatto c = new Contatto();
@@ -46,9 +37,12 @@ public class Controller {
 		return list;
 	}
 	
-	public boolean getRubrica(){
+	@Path("/all")
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Contatto> getRubrica(){
+		ArrayList<Contatto> contatti = new ArrayList<>();
 		Session session = HibernateUtil.openSession();		
-		boolean risultato = true;
 		Transaction tx = null;
 		String cq = "FROM Contatto";
 		try {
@@ -59,15 +53,14 @@ public class Controller {
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null) {
-				risultato = false;
 				tx.rollback();
 			}
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
-		System.out.println(risultato);
-		return risultato;
+		contatti.addAll(rubrica);
+		return contatti;
 	}
 	
 	public boolean delete(String numero ) {
