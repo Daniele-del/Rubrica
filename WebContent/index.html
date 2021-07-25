@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="en">
+	<meta charset="UTF-8">	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel = stylesheet type="text/css" href= "css/main.css">
 <script src="js/main.js"></script>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body onload="allContatti()">
-	<h1>RESTful Web Services</h1>
-	<div id="tabella">
+	<div  id="div-title">
+		<h1>Rubrica RESTful</h1>
+	</div>
+	<div id="div-main">	
+		
+			<div id="scelte" class="half_page" style="display: block;">
+				<button id="creab" class="bottoni" onclick="showCreate()">CREATE</button><br>
+				<button id="cancellab" class="bottoni" onclick="showDelete()">DELETE</button><br>
+				<button id="cambiab" class="bottoni" onclick="showUpload()">UPLOAD</button><br>
+				<button id="cercab" class="bottoni" onclick="showSearch()">SEARCH</button><br>
+			</div>
+			<div id="DivCreate" class="half_page" style="display: none;">
+				<form id="formCreate">
+					<label for="nomec">Nome</label><br>
+					<input type="text" id="nomec" name="nome" required ><br>
+					<label for="cognomec">Cognome</label><br>
+					<input type="text" id="cognomec" name="cognome" required><br>
+					<label for="numeroc">Numero</label><br>
+					<input type="text" id="numeroc" name="numero" required><br><br><br>
+					<input type="submit" value="Crea Contatto" onclick="create()"><br>
+					<button  class="bottoni" onclick="showMenu()">Menu</button><br>
+				</form>
+			</div>
+			<div id="DivSearch" class="half_page" style="display: none;">
+				<form id="formSearch">
+					<label for="nomes">Nome da cercare</label><br>
+					<input type="text" id="nomes" name="nome"><br>
+					<input type="submit" value="Cerca Contatto" onclick="search()"><br>
+					<button type="button" class="bottoni" onclick="showMenu()">Menu</button><br>
+				</form>
+			</div>
+			<div id="DivDelete" class="half_page" style="display: none;">
+					<label for="del_num">Numero da cancellare</label><br>
+					<input type="text" id="del_num" name="del_num" required><br><br><br>
+					<input type="submit" value="Cancella Contatto" onclick="del()"><br>
+					<button  class="bottoni" onclick="showMenu()">Menu</button><br>
+			</div>
+			<div id="DivUpload" class="half_page" style="display: none;">
+				<label for="numerou">Numero del contatto da aggiornare</label><br>
+				<input type="text" id="numerou" name="numerou" required><br><br><br>
+				<input type="submit" value="Cancella Contatto" onclick="upload()"><br>
+				<button  class="bottoni" onclick="showMenu()">Menu</button><br>
+			</div>
+			<div id="tabella">
+			</div>
+		
 	</div>
 </body>
 </html>
