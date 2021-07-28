@@ -2,9 +2,11 @@ body{
     background-color: rgba(24, 28, 38);
     font-style:normal;
     font-family: Helvetica;
-    background-image: url("photo-1516945409304-707a6fa79a02.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+}
+#idu{
+    display: none;
 }
 #div-main{
     margin-top: 50px;
@@ -22,11 +24,21 @@ body{
     background-color: rgb(42, 162, 209);
     margin: 5%;
     border-radius: 15px;
-    width: 300px;
-    height: 50px;
+    width: 200px;
+    height: 30px;
     font-size: 20px;
     font-weight: bolder;
     color: rgba(24, 28, 38);
+}
+#tutti_b{
+    float: left;
+}
+#trova_b{
+    float: left;
+}
+#del_num{
+    text-align: center;
+    width: 50px;
 }
 .half_page{
     margin-top: 50px;
@@ -35,16 +47,18 @@ body{
     float: left;
     margin-left: 5%;
 }
-#tabella{
-    margin-top: 50px;
+#tutti{
     opacity: 0.9;
+}
+#trova{
+   opacity: 0.9;
 }
 table {
     margin-right: 5%;
     margin-top: 100px;
     color: white;
     background-color: rgba(24, 28, 38);
-    float: right;
+    float: left;
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 45%;

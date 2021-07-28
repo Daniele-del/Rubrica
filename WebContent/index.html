@@ -2,6 +2,8 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">	
+	<script type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel = stylesheet type="text/css" href= "css/main.css">
 <script src="js/main.js"></script>
@@ -16,44 +18,83 @@
 			<div id="scelte" class="half_page" style="display: block;">
 				<button id="creab" class="bottoni" onclick="showCreate()">CREATE</button><br>
 				<button id="cancellab" class="bottoni" onclick="showDelete()">DELETE</button><br>
-				<button id="cambiab" class="bottoni" onclick="showUpload()">UPLOAD</button><br>
+				<button id="cambiab" class="bottoni" onclick="showUpdate()">UPDATE</button><br>
 				<button id="cercab" class="bottoni" onclick="showSearch()">SEARCH</button><br>
+				<button id="allb" class="bottoni" onclick="allContatti()">RUBRICA</button><br>
 			</div>
 			<div id="DivCreate" class="half_page" style="display: none;">
 				<form id="formCreate">
 					<label for="nomec">Nome</label><br>
-					<input type="text" id="nomec" name="nome" required ><br>
+					<input type="text" id="nomec" name="nome"  pattern="[a-zA-Z ]+" required ><br>
 					<label for="cognomec">Cognome</label><br>
-					<input type="text" id="cognomec" name="cognome" required><br>
+					<input type="text" id="cognomec" name="cognome"  pattern="[a-zA-Z ]+" required><br>
 					<label for="numeroc">Numero</label><br>
-					<input type="text" id="numeroc" name="numero" required><br><br><br>
-					<input type="submit" value="Crea Contatto" onclick="create()"><br>
+					<input type="text" id="numeroc" name="numero" pattern="\d{10}" required><br><br><br>
+					<input type="button" value="Crea Contatto" onclick="create()"><br>
 					<button  class="bottoni" onclick="showMenu()">Menu</button><br>
 				</form>
 			</div>
 			<div id="DivSearch" class="half_page" style="display: none;">
-				<form id="formSearch">
-					<label for="nomes">Nome da cercare</label><br>
-					<input type="text" id="nomes" name="nome"><br>
-					<input type="submit" value="Cerca Contatto" onclick="search()"><br>
-					<button type="button" class="bottoni" onclick="showMenu()">Menu</button><br>
-				</form>
+				<label for="nomes">Nome da cercare</label><br>
+				<input type="text" id="nomes" name="nomes" pattern="[a-zA-Z ]+"><br><br>
+				<input type="submit" value="Cerca per nome" onclick="searchByName()"><br><br>
+				<label for="ns">Numero da cercare</label><br>
+				<input type="text" id="ns" name="ns" pattern="\d" maxlength="10"><br><br>
+				<input type="submit" value="Cerca per numero" onclick="searchByNumber()"><br>
+				<button type="button" class="bottoni" onclick="showMenu()">Menu</button><br>
 			</div>
 			<div id="DivDelete" class="half_page" style="display: none;">
-					<label for="del_num">Numero da cancellare</label><br>
-					<input type="text" id="del_num" name="del_num" required><br><br><br>
-					<input type="submit" value="Cancella Contatto" onclick="del()"><br>
+					<label for="del_num">CANCELLARE </label>
+					<input type="text" id="del_num" name="del_num" value="" readonly>
+					<p>NUMERO/I</p>
+					<br><br>
+					<input type="submit" value="Cancella Contatto/i" onclick="del()"><br>
 					<button  class="bottoni" onclick="showMenu()">Menu</button><br>
 			</div>
-			<div id="DivUpload" class="half_page" style="display: none;">
-				<label for="numerou">Numero del contatto da aggiornare</label><br>
-				<input type="text" id="numerou" name="numerou" required><br><br><br>
-				<input type="submit" value="Cancella Contatto" onclick="upload()"><br>
-				<button  class="bottoni" onclick="showMenu()">Menu</button><br>
+			<div id="DivUpdate" class="half_page" style="display: none;">
+				<h1>Modifica uno o piu campi</h1>
+				<form id="formUpdate">
+					<label for="nomeu">Nome</label>
+					<input type="text" id="nomeu" name="nomeu" pattern="[a-zA-Z ]+"><br><br>
+					<label for="cognomeu">Cognome</label>
+					<input type="text" id="cognomeu" name="cognomeu" pattern="[a-zA-Z ]+"><br><br>
+					<label for="numerou">Numero</label>
+					<input type="text" id="numerou" name="numerou" pattern="\d{10}"><br><br>
+					<input type="text" id="idu" name="idu"><br><br>
+					<input type="submit" value="Aggiorna Contatto" onclick="update()"><br>
+					<button  class="bottoni" onclick="showMenu()">Menu</button><br>
+				</form>	
 			</div>
-			<div id="tabella">
+			<div id="tutti" class="half_page" style="display: block;">
+				<table id="tuttiTable" class="tabelle">
+					<thead>
+					  <tr>
+						<th>CHECK</th>
+						<th>NOME</th>
+						<th>COGNOME</th>
+						<th>NUMERO</th>
+					  </tr>
+					</thead>
+
+				  </table>
+				<!--  <button id="trovati_b"  class="bottoni" onclick="showTrova()">Trovati</button><br> -->
 			</div>
-		
+<!--		<div id="trova" class="half_page" style="display: none;">
+				<table id="trovaTable" class="tabelle">
+					<thead>
+					  <tr>
+						<th>CHECK</th>
+						<th>NOME</th>
+						<th>COGNOME</th>
+						<th>NUMERO</th>
+					  </tr>
+					</thead>
+	
+				  </table>
+				  <button id="tutti_b" class="bottoni" onclick="showTutti()">Vedi tutti</button><br>
+			</div> -->
+		</div>
+			
 	</div>
 </body>
 </html>
