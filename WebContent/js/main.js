@@ -26,7 +26,7 @@ function collegamentoGet(){
 
 
 async function allContatti(){
-  console.log("im called")
+  showMenu();
   var tab = document.getElementById("tuttiTable");
   if (document.body.contains(document.getElementById("tuttiBody"))){
     var sub = document.getElementById("tuttiBody");
@@ -64,7 +64,6 @@ async function allContatti(){
                 if(k == "numero"){
                   checkbox.value = child[k];
                 }               
-                console.log(checkbox.value);
                 var cell = row.insertCell();             
                 cell.appendChild(document.createTextNode(child[k]));
               })
@@ -98,7 +97,7 @@ async function create(){
         }catch(e){
             console.error(e);
         }
-
+        allContatti();
     //});
 }
 
@@ -133,7 +132,7 @@ async function del(){
         }catch(e){
             console.error(e);
         }
-
+        allContatti();
 }
 
 async function searchByName(){
@@ -263,7 +262,8 @@ async function update(){
   }
   const formEl = document.getElementById("formUpdate");
   const formData = new FormData(formEl);
-  const formDataSerialized = Object.fromEntries(formData);
+  const formDataSerialized = Object.fromEntries(formData , id);
+  console.log(JSON.stringify(formDataSerialized));
   const url = 'http://localhost:8080/Rubrica/rest/servizi/update';
 
           try{
@@ -275,13 +275,16 @@ async function update(){
                 },
                 
             });
-            const risultato = await response.text();
-            console.log(risultato);
-            alert(risultato);
+            const risultato = await response.json();
+            var msg = risultato;
+            console.log(msg);
+            var out = msg.status;
+            console.log(out);
+            alert(out);
         }catch(e){
             console.error(e);
         }
-
+        allContatti();
 }
 
 
@@ -294,7 +297,7 @@ function showCreate() {
     }       
   }
     var x = document.getElementById("DivCreate");   
-    var y = document.getElementById("scelte");
+    var y = document.getElementById("tutti");
     var z = document.getElementById("DivDelete");
     var j = document.getElementById("DivUpdate");
     var k = document.getElementById("DivSearch");
@@ -315,6 +318,7 @@ function showCreate() {
         console.log(count);
       }   
     }
+    console.log(count);
     num.value = count;
     if( count < 1){
       alert("Spunta la casella di uno o piu contatti che vuoi eliminare!");
@@ -327,7 +331,7 @@ function showCreate() {
         }       
       }
       var x = document.getElementById("DivCreate");   
-      var y = document.getElementById("scelte");
+      var y = document.getElementById("tutti");
       var z = document.getElementById("DivDelete");
       var j = document.getElementById("DivUpdate");
       var k = document.getElementById("DivSearch");
@@ -340,16 +344,44 @@ function showCreate() {
     }
 }
 
-  function showSearch() {
-    var inputElems = document.getElementsByTagName("input");
+  function showInfo() {
+    
+    var i_nome = document.getElementById("nomei");
+    var i_cognome = document.getElementById("cognomei");
+    var i_numero = document.getElementById("numeroi");
 
+    var inputElems = document.getElementsByTagName("input");
+    var count = 0;
     for (var i=0; i<inputElems.length; i++) {
-      if(inputElems[i].type === "checkbox"){
-        inputElems[i].disabled = true;
-      }       
+    if (inputElems[i].type === "checkbox" && inputElems[i].checked === true){
+        count++;
+      }   
     }
+    if(count == 1){
+
+    var values = new Array();
+
+    $('.tabelle input[type=checkbox]:checked').each(function() { 
+ 
+       var row = $(this).parents("tr");
+       var rowcells = row.find('td');
+ 
+       rowcells.each(function() {
+         values.push($(this).html());
+       });   
+    
+    });
+     console.log(values);
+ 
+     i_nome.innerHTML = values[0];
+     i_nome.value = values[0];
+     i_cognome.innerHTML = values[1];
+     i_cognome.value = values[1];
+     i_numero.value = values[2];
+     i_numero.innerHTML = values[2];
+
     var x = document.getElementById("DivCreate");   
-    var y = document.getElementById("scelte");
+    var y = document.getElementById("tutti");
     var z = document.getElementById("DivDelete");
     var j = document.getElementById("DivUpdate");
     var k = document.getElementById("DivSearch");
@@ -357,21 +389,26 @@ function showCreate() {
     y.style.display = "none";
     k.style.display = "block";
     j.style.display = "none";
-    x.style.display = "none";          
+    x.style.display = "none";    
+  }else{
+    alert("Spuntare uno ed un solo contatto!");
+  }       
   }
 
   function showUpdate() {
 
     var inputElems = document.getElementsByTagName("input");
+    var up_id = document.getElementById("idu");
     var count = 0;
     for (var i=0; i<inputElems.length; i++) {
     if (inputElems[i].type === "checkbox" && inputElems[i].checked === true){
+      up_id.value = inputElems[i].value;
+      up_id.innerHTML = inputElems[i].value;
         count++;
-        console.log(count);
       }   
     }
     if(count == 1){
-
+      console.log(count);
     var up_nome = document.getElementById("nomeu");
     var up_cognome = document.getElementById("cognomeu");
     var up_numero = document.getElementById("numerou");
@@ -397,30 +434,21 @@ function showCreate() {
     up_numero.value = values[2];
     up_numero.innerHTML = values[2];
 
-//    if(up_numero.value == null || up_numero.value == "" || up_numero.value == "undefined"){
-//      alert("Spunta la casella del contatto che vuoi aggiornare!"); 
- // }else{
-  var inputElems = document.getElementsByTagName("input");
-
-  for (var i=0; i<inputElems.length; i++) {
-    if(inputElems[i].type === "checkbox"){
-      inputElems[i].disabled = true;
-    }       
-  }
     var x = document.getElementById("DivCreate");   
-    var y = document.getElementById("scelte");
+    var y = document.getElementById("tutti");
     var z = document.getElementById("DivDelete");
     var j = document.getElementById("DivUpdate");
     var k = document.getElementById("DivSearch");
-    z.style.display = "none";
-    y.style.display = "none";
-    k.style.display = "none";
-    j.style.display = "block";
-    x.style.display = "none";  
+
+      z.style.display = "none";
+      y.style.display = "none";
+      k.style.display = "none";
+      j.style.display = "block";
+      x.style.display = "none"; 
 
 //  } 
   }else{
-    alert("Spuntare uno ed un solo contatto per aggiornare!");
+    alert("Spuntare uno ed un solo contatto!");
   }      
 }
 
@@ -437,21 +465,29 @@ function showCreate() {
     var nome_up = document.getElementById("nomeu");
     var cognome_up = document.getElementById("cognomeu");
     var num_up = document.getElementById("numerou");
+    var nome_c = document.getElementById("nomec");
+    var cognome_c = document.getElementById("cognomec");
+    var num_c = document.getElementById("numeroc");
     var x = document.getElementById("DivCreate");   
-    var y = document.getElementById("scelte");
+    var y = document.getElementById("tutti");
     var z = document.getElementById("DivDelete");
     var j = document.getElementById("DivUpdate");
     var k = document.getElementById("DivSearch");
     del.value = "";
     nome_up.value = "";
-    cognome_up = "";
-    num_up = "";
+    cognome_up.value = "";
+    num_up.value = "";
+    nome_c.value = "";
+    cognome_c.value = "";
+    num_c.value = "";
     z.style.display = "none";
     y.style.display = "block";
     k.style.display = "none";
     j.style.display = "none";
     x.style.display = "none";          
   }
+
+
   function showTutti() {
     var x = document.getElementById("trova");   
     var y = document.getElementById("tutti");
@@ -462,6 +498,7 @@ function showCreate() {
     y.style.display = "block";
     x.style.display = "none";          
   }
+
   function showTrova() {
     var x = document.getElementById("trova");   
     var y = document.getElementById("tutti");

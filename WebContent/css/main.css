@@ -1,18 +1,18 @@
 body{
+    text-align: center;
+    align-items: center;
     background-color: rgba(24, 28, 38);
     font-style:normal;
     font-family: Helvetica;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 #idu{
     display: none;
 }
-#div-main{
-    margin-top: 50px;
-}
+
 #div-title{
-    margin: 5%;
     position:relative;
     color: rgb(42, 162, 209);
     height: 40px;
@@ -22,50 +22,107 @@ body{
 
 .bottoni{
     background-color: rgb(42, 162, 209);
-    margin: 5%;
-    border-radius: 15px;
-    width: 200px;
+    margin: 15px;
+    border-radius: 10px;
+    width: 100px;
     height: 30px;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bolder;
     color: rgba(24, 28, 38);
 }
-#tutti_b{
-    float: left;
+.bottoni_nav{
+
+    border: rgb(42, 162, 209);
+    background-color: rgb(42, 162, 209);
+    width: 100px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: bolder;
+    color: rgba(24, 28, 38);
 }
-#trova_b{
-    float: left;
+.bottoni_nav:hover{
+    border: black;
+    background-color: rgb(27, 104, 134);
+    color: white;
 }
+
 #del_num{
     text-align: center;
     width: 50px;
 }
 .half_page{
-    margin-top: 50px;
-    width: 45%;
+    width: 60%;
+    height: 400px;
     color: white;
     float: left;
-    margin-left: 5%;
 }
 #tutti{
+    overflow: auto;
     opacity: 0.9;
 }
-#trova{
-   opacity: 0.9;
-}
+
 table {
-    margin-right: 5%;
-    margin-top: 100px;
+    margin: 0 auto;
     color: white;
     background-color: rgba(24, 28, 38);
-    float: left;
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 45%;
 }  
 td, th {
     border-top: 1px solid rgb(84, 84, 84);
     border-bottom: 1px solid rgb(84, 84, 84) ;
     text-align: left;
     padding: 8px;
+}
+th{
+    width: 200px;
+}
+#left_space{
+    float: left;
+    width: 20%;
+    height: 500px;
+
+}
+#right_space{
+    float: right;
+    width: 20%;
+    height: 500px;
+}
+
+#info{
+    background-color: rgb(42, 162, 209);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bolder;
+    color: rgba(24, 28, 38);
+    height: 25px;
+    margin: 10px;
+    float: right;
+}
+input[type="checkbox"]{
+    align-items: center;
+}
+#scelte{
+    background-color: rgb(42, 162, 209);
+    margin-top: 20px;
+    margin-bottom: 50px;
+    height: 50px;
+    width: 100%;
+}
+#nomes{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 300px;
+    height: 30px;
+    margin-left: 100px;
+}
+
+
+#nav{
+    height: 40px;
+    width: 100%;
+    margin: 0 auto;
+}
+#boh{
+    all: unset;
+    all: initial;
 }

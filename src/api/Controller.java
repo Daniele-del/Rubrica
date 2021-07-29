@@ -14,11 +14,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 @Path("/servizi")
@@ -58,7 +60,7 @@ public class Controller {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Contatto> searchByName(String nome){
 		nome = nome.toUpperCase().trim();
-		String cq = "FROM Contatto where nome LIKE " + "'" + nome + "%'";
+		String cq = "FROM Contatto where nome LIKE " + "'" + nome + "%' " + "or " + "cognome LIKE " + "'" + nome + "%'";
 		ArrayList<Contatto> list = new ArrayList<>();
 		Session session = HibernateUtil.openSession();		
 		Transaction tx = null;
@@ -143,8 +145,9 @@ public class Controller {
 	@PUT
 	@Path("/update")
 	@Consumes("application/json")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String update(String json) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response update(String json) {
+		System.out.println(json.toString());
 		Contatto c = new Contatto();	
 		Session session = HibernateUtil.openSession();
 		String risultato = "UPDATE FALLITO!";
@@ -182,7 +185,10 @@ public class Controller {
 			risultato = "UPDATE RIUSCITO!";
 		}
 		System.out.println(risultato);
-		return risultato;
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode msg = mapper.createObjectNode();
+		msg.put("status", risultato);
+		return Response.status(Response.Status.CREATED).entity(msg).build();
 	}
 	
 
@@ -214,6 +220,7 @@ public class Controller {
 		} finally {
 			session.close();
 		}
+		
 		System.out.println(risultato);
 		return risultato;
 	}
